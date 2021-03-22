@@ -22,7 +22,7 @@ const DogSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-    
+
   createdDate: {
     type: Number,
     required: true,
@@ -41,7 +41,6 @@ DogSchema.statics.findByName = (name, callback) => {
 
 // Create the dog model based on the schema. You provide it with a custom discriminator
 DogModel = mongoose.model('Dog', DogSchema);
-
 
 // export our public properties
 module.exports.DogModel = DogModel;

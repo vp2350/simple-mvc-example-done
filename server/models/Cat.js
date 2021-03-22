@@ -38,7 +38,6 @@ CatSchema.statics.findByName = (name, callback) => {
 // Create the cat model based on the schema. You provide it with a custom discriminator
 CatModel = mongoose.model('Cat', CatSchema);
 
-
 // export our public properties
 module.exports.CatModel = CatModel;
 module.exports.CatSchema = CatSchema;

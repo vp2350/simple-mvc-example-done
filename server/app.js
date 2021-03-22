@@ -7,7 +7,7 @@ const express = require('express');
 const compression = require('compression');
 // favicon library to handle favicon requests
 const favicon = require('serve-favicon');
- // Library to parse cookies from the requests
+// Library to parse cookies from the requests
 const cookieParser = require('cookie-parser');
 // library to handle POST requests any information sent in an HTTP body
 const bodyParser = require('body-parser');
@@ -27,12 +27,10 @@ const dbURL = process.env.MONGODB_URI || 'mongodb://localhost/simpleMVCExample';
 // A number of options for Mongoose to turn on newer features supported by
 // newer version of MongoDB.
 const mongooseOptions = {
-  useNewUrlParser: true, 
+  useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
-}
-
-
+};
 
 // call mongoose's connect function and pass in the url and options object.
 mongoose.connect(dbURL, mongooseOptions, (err) => {
@@ -42,7 +40,6 @@ mongoose.connect(dbURL, mongooseOptions, (err) => {
   }
 });
 
-
 // Port set by process.env.PORT environment variable.
 // If the process.env.PORT variable or the env.NODE_PORT variables do not exist, use port 3000
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
@@ -50,23 +47,18 @@ const port = process.env.PORT || process.env.NODE_PORT || 3000;
 // call express to get an Express MVC server object
 const app = express();
 
-
 // app.use tells express to use different options
 // This option tells express to use /assets in a URL path as a static mirror to our client folder
 app.use('/assets', express.static(path.resolve(`${__dirname}/../client/`)));
 
-
 // Call compression and tell the app to use it
 app.use(compression());
-
 
 // parse form POST requests as application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 
-
 // parse application/json body requests.
 app.use(bodyParser.json());
-
 
 // app.set sets one of the express config options
 app.engine('handlebars', expressHandlebars({
@@ -74,29 +66,23 @@ app.engine('handlebars', expressHandlebars({
 }));
 app.set('view engine', 'handlebars');
 
-
 // set the views path to the template directory
 app.set('views', `${__dirname}/../views`);
-
 
 // call favicon with the favicon path and tell the app to use it
 app.use(favicon(`${__dirname}/../client/img/favicon.png`));
 
-
 // call the cookie parser library and tell express to use it
 app.use(cookieParser());
-
 
 // pass our app to our router object to map the routes
 router(app);
 
-
 // Tell the app to listen on the specified port
 app.listen(port, (err) => {
-    // if the app fails, throw the err
+  // if the app fails, throw the err
   if (err) {
     throw err;
   }
   console.log(`Listening on port ${port}`);
 });
-
